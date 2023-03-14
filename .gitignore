@@ -127,3 +127,24 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignore database files
+*.db.sqlite3
+*.db
+
+# Ignore migration files
+*/migrations/
+
+# Ignore static files
+/staticfiles/
+
+# Ignore media files
+/media/
+
+# Ignore log files
+*.log
+
+# Ignore environment files
+.env
+
+*.pyc

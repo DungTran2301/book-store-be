@@ -22,11 +22,11 @@ Query OK, 0 rows affected (0.00 sec)
 ```
 ## Migrate db
 ```terminal
-\bookstore\ecomstore> py manage.py migrate      
-\bookstore\ecomstore> py manage.py makemigrations
+\book-store-be\ecomstore> py manage.py migrate      
+\book-store-be\ecomstore> py manage.py makemigrations
 ```
 
 ## Run server
 ```terminal
-\bookstore\ecomstore> py manage.py runserver
+\book-store-be\ecomstore> py manage.py runserver
 ```

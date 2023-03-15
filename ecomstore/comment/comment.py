@@ -10,10 +10,6 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-User = get_user_model()
-
-default_user = User.objects.first()
-
 def get_product_comment(request):
     try:
         postdata = request.data
@@ -41,6 +37,9 @@ def create_comment(request):
             raise Exception('Rate value must bettwen 1-5')
         if content == "" :
             raise Exception('Content must not be null')
+        
+        User = get_user_model()
+        default_user = User.objects.first()
 
         comment = Comment.objects.create(
             product=product,

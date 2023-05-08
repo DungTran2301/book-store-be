@@ -32,15 +32,12 @@ def create_comment(request):
         product = get_object_or_404(Product, id=product_id)
         content = data.get('content', "")
         rate = data.get('rate', 0)
-
         if rate < 1 or rate > 5 :
             raise Exception('Rate value must bettwen 1-5')
         if content == "" :
             raise Exception('Content must not be null')
-        
         User = get_user_model()
         default_user = User.objects.first()
-
         comment = Comment.objects.create(
             product=product,
             user = default_user,

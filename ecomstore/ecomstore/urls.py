@@ -21,11 +21,13 @@ admin.autodiscover()
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('catalog/', views.home),
+    path('user/', include('accounts.urls')),
     path('catalog/', include('catalog.urls')),
     path('cart/', include('cart.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('checkout/', include('checkout.urls')),
     path('comment/', include('comment.urls')),
+    path('payment/', include('payment.urls')),
 ]
 

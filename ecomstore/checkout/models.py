@@ -1,11 +1,13 @@
 from django.db import models
 from django import forms
-from django.contrib.auth.models import User
+
 from catalog.models import Product
 import decimal
 from django.urls import reverse
+from ecomstore import settings
 
 class BaseOrderInfo(models.Model):
+  
 
   class Meta:
     abstract = True
@@ -34,6 +36,7 @@ class BaseOrderInfo(models.Model):
   billing_zip = models.CharField(max_length=10) 
 
 class Order(BaseOrderInfo):
+  
   # each individual status
   SUBMITTED = 1
   PROCESSED = 2
@@ -45,12 +48,9 @@ class Order(BaseOrderInfo):
   (SHIPPED,'Shipped'),
   (CANCELLED,'Cancelled'),)
   # order info
+  user_id = models.CharField(max_length=50)
   date = models.DateTimeField(auto_now_add=True)
   status = models.IntegerField(choices=ORDER_STATUSES, default=SUBMITTED)
-  ip_address = models.GenericIPAddressField()
-  last_updated = models.DateTimeField(auto_now=True)
-  user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
-  transaction_id = models.CharField(max_length=20)
 
   def __unicode__(self):
     return 'Order #' + str(self.id)
@@ -64,6 +64,16 @@ class Order(BaseOrderInfo):
   def get_absolute_url(self):
     print('order_details', self.id)
     return reverse('order_details', args= { self.id }) 
+  @property
+  def appTransId(self):
+    formatted_date = self.date.strftime('%y%m%d')
+    apptransid = f'{formatted_date}_{self.pk}'
+    return apptransid
+  @property
+  def orderStatus(self):
+    return self.ORDER_STATUSES[self.status][1]
+  
+  
 class OrderItem(models.Model):
   product = models.ForeignKey(Product, on_delete= models.CASCADE)
   quantity = models.IntegerField(default=1)
